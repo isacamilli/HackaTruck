@@ -2,8 +2,10 @@
 import SwiftUI
 
 struct calc_imc: View {
-    @State private var peso: Double = 0
-    @State private var alt: Double = 0
+    @State private var peso: String = ""
+    @State private var alt: String = ""
+    @State private var nuovo_peso : Double = 0
+    @State private var nuova_alt: Double = 0
     @State private var cor = "Branco"
     @State private var res: String = ""
     
@@ -15,13 +17,13 @@ struct calc_imc: View {
                     Text("Calculadora de IMC")
                         .font(.largeTitle)
                     Spacer()
-                    TextField("Enter your weight: ", value: $peso, format: .number)
+                    TextField("Enter your weight: ", text: $peso)
                         .textContentType(.oneTimeCode).padding()
                         .background(Color.white)
                         .cornerRadius(6)
                         .multilineTextAlignment(.center)
                     Spacer()
-                    TextField("Enter your height in meters: ", value: $alt, format: .number)
+                    TextField("Enter your height in meters: ", text: $alt)
                         .textContentType(.oneTimeCode).padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -46,7 +48,9 @@ struct calc_imc: View {
         
         
         func calc(){
-            var coiso: Double = peso / pow(alt, 2)
+            nuovo_peso = (peso as NSString).doubleValue
+            nuova_alt = (alt as NSString).doubleValue
+            let coiso: Double = nuovo_peso / pow(nuova_alt, 2)
             if coiso < 18.5 {
                 res = "Baixo peso"
                 cor = "Baixo_P"
@@ -63,7 +67,6 @@ struct calc_imc: View {
                 res = "Obeso"
                 cor = "Obes"
             }
-            
         }
     }
 
