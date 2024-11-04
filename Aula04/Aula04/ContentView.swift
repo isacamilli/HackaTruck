@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+struct Musica : Identifiable {
+    var id : Int
+    var titulo : String
+    var autor : String
+    var capa : String
+}
 
 struct ContentView: View {
     
-    struct Musica : Identifiable {
-        var id : Int
-        var titulo : String
-        var autor : String
-        var capa : String
-    }
+    
     
     var musicas = [
         Musica(id: 1, titulo: "The Archer", autor: "Taylor Swift", capa: "CapaLover"),
@@ -42,7 +43,7 @@ struct ContentView: View {
                                 .frame(width: 200,height: 200).padding()
                             
                             HStack {
-                                VStack(alignment: .leading){ 
+                                VStack(alignment: .leading){
                                     Text("Isa playlist")
                                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).foregroundColor(.white)
                                         .bold()
@@ -50,40 +51,45 @@ struct ContentView: View {
                                         Image("CapaLover").resizable().frame(width: 45, height: 45)
                                         Text("Isacamilli").foregroundColor(.white)
                                     }
-                                }.padding(25)
+                                }.padding(15)
                                 Spacer()
                             }
                             
                             ForEach(musicas)
                             { a in
-                                HStack {
-                                    Image(a.capa)
-                                        .resizable()
-                                        .frame(width: 50 ,height: 50)
-                                    VStack(alignment: .leading) {
-                                        
-                                        Text(a.titulo).foregroundColor(.white).multilineTextAlignment(.leading)
-                                        
-                                        Text(a.autor).foregroundColor(.white).multilineTextAlignment(.leading)
+                                NavigationLink(destination: TelaMusica(musica:a)) {
+                                    HStack {
+                                        Image(a.capa)
+                                            .resizable()
+                                            .frame(width: 50 ,height: 50)
+                                        VStack(alignment: .leading) {
+                                            
+                                            Text(a.titulo).foregroundColor(.white).multilineTextAlignment(.leading)
+                                            
+                                            Text(a.autor).foregroundColor(.white).multilineTextAlignment(.leading)
+                                        }
+                                        Spacer()
+                                        Image(systemName: "ellipsis").foregroundColor(.white)
                                     }
-                                    Spacer()
-                                    Image(systemName: "ellipsis").foregroundColor(.white)
                                 }
                             }
-                            
-                            
-                            .padding()
-                        }
-                        ScrollView{
+                
+                        }.padding()
+                        Text("Sugeridos")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        ScrollView(.horizontal){
                             VStack {
-                                Text("Sugeridos")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                
                                 HStack {
                                     Image("Capa505").resizable()
                                         .frame(width: 200,height: 200)
+                                    Image("CapaTrench")
+                                        .resizable()
+                                        .frame(width: 200, height: 200)
                                 }
+                                .padding()
                             }
                         }
                     }
